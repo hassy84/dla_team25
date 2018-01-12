@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>hololens-no-gakkou</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
+    <!-- =======================================================
+        Theme Name: Day
+        Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-68564657-3', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '174665363103732');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=174665363103732&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+</head>
+<script>
+    fbq('track', 'ViewContent');
+</script>
+
+<body>
+<header id="header">
+    <nav class="navbar navbar-default navbar-static-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">
+                    <a href="index.html"><h1>HoloLensのガッコウ</h1></a>
+                </div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <div class="menu">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation"><a href="index.html" class="active">ホームへ</a></li>
+                        <li role="presentation"><a href="#honka">本科について</a></li>
+                        <li role="presentation"><a href="#zentai">カリキュラム全体構成</a></li>
+                        <li role="presentation"><a href="#pattern">おすすめの受講パターン</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div><!--/.container-->
+    </nav><!--/nav-->
+</header><!--/header-->
+
+<!--<div class="slider">-->
+<!--<div id="about-slider">-->
+<!--<div id="carousel-slider" class="carousel slide" data-ride="carousel">-->
+<!--&lt;!&ndash; Indicators &ndash;&gt;-->
+<!--<ol class="carousel-indicators visible-xs">-->
+<!--<li data-target="#carousel-slider" data-slide-to="0" class="active"></li>-->
+<!--<li data-target="#carousel-slider" data-slide-to="1"></li>-->
+<!--<li data-target="#carousel-slider" data-slide-to="2"></li>-->
+<!--</ol>-->
+
+<!--<div class="carousel-inner">-->
+<!--<div class="item active">-->
+<!--<img src="img/1_chara.png" class="img-responsive" alt="">-->
+<!--<div class="carousel-caption">-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">-->
+<!--<h2><span>押しキャラと一緒に生活する</span></h2>-->
+<!--</div>-->
+<!--<div class="col-md-10 col-md-offset-1">-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">-->
+<!--<p>クリエイターだからこそ創り出せる未来があります</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.9s">-->
+<!--<button type="button" class="btn btn-primary btn-lg">-->
+<!--<a href="http://hololensnogakkou.peatix.com">-->
+<!--詳しく知りたい！-->
+<!--</a>-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="item">-->
+<!--<img src="img/2_biz.png" class="img-responsive" alt="">-->
+<!--<div class="carousel-caption">-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="1.0s">-->
+<!--<h2>未来のビジネスを創る</h2>-->
+<!--</div>-->
+<!--<div class="col-md-10 col-md-offset-1">-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">-->
+<!--<p>ビジネスパーソンだからこそ創り出せる未来があります</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="1.6s">-->
+<!--<button type="button" class="btn btn-primary btn-lg">-->
+<!--<a href="http://hololensnogakkou.peatix.com">-->
+<!--詳しく知りたい！-->
+<!--</a>-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="item">-->
+<!--<img src="img/3_future.png" class="img-responsive" alt="">-->
+<!--<div class="carousel-caption">-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">-->
+<!--<h2>ヒトより0.5歩だけ早く</h2>-->
+<!--</div>-->
+<!--<div class="col-md-10 col-md-offset-1">-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">-->
+<!--<p>今すぐ創り始められる未来があります</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.9s">-->
+<!--<button type="button" class="btn btn-primary btn-lg">-->
+<!--<a href="http://hololensnogakkou.peatix.com">-->
+<!--詳しく知りたい！-->
+<!--</a>-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<a class="left carousel-control hidden-xs" href="#carousel-slider" data-slide="prev">-->
+<!--<i class="fa fa-angle-left"></i>-->
+<!--</a>-->
+
+<!--<a class=" right carousel-control hidden-xs" href="#carousel-slider" data-slide="next">-->
+<!--<i class="fa fa-angle-right"></i>-->
+<!--</a>-->
+<!--</div> &lt;!&ndash;/#carousel-slider&ndash;&gt;-->
+<!--</div>&lt;!&ndash;/#about-slider&ndash;&gt;-->
+<!--</div>&lt;!&ndash;/#slider&ndash;&gt;-->
+
+<div class="about" id="honka">
+    <div class="container">
+        <div class="text-center">
+            <h2>本科　カリキュラム</h2>
+            <div class="col-md-10 col-md-offset-1">
+                <h4>一回２時間、計４回で、創りたい物のプロトタイプ実現を目指します。</h4>
+                <h4>（４時間ｘ２回などの集中コースもご用意しています）</h4>
+                <img src="img/course_honka_171101.png" class="img-responsive" alt="">
+                <h5>Day1-4、もしくはDay2-5の４日間分を基本コースとします。</h5>
+                <h5>単科にご参加いただき、すでに環境構築済みの方などはDay2-5を履修頂きます。</h5>
+                <h5>Day4、Day5は、基本カリキュラムはご用意していますが、</h5>
+                <h5>ご本人のゴールに応じてカリキュラムを柔軟に変更可能です。</h5>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg">
+                        <a href="http://hololensnogakkou.peatix.com">
+                            申込みはこちら
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="about" id="zentai">
+    <div class="container">
+        <div class="text-center">
+            <h2>カリキュラムの全体構成</h2>
+            <div class="col-md-10 col-md-offset-1">
+                <h4>本科以外に、単科、補科などで全体のカリキュラムを構成しております。</h4>
+                <img src="img/course_overall.png" class="img-responsive" alt="">
+                <h4 style="color:red">単科：２時間の一回コース、環境設定し初めてのHoloLensアプリを作るコースなど。</h4>
+                <h5>本科のコースの一回分に相当するカリキュラムを受けていただけます。</h5>
+                <h5>day1（はじめてコンテンツを作成する回）以外にもお好きな回をお選びいただけます。</h5>
+                <br>
+                <h4 style="color:green">本科：一回２時間、全4回のコースです。</h4>
+                <h5>全部で5本のカリキュラムからなり、</h5>
+                <h5>進捗によりday1-day4、もしくはday2-day5を受講頂くのが基本的なパターンです。</h5>
+                <br>
+                <h4 style="color:blue">補科：HoloLensを使った補習授業で、本科受講者であれば1年間無料で受講いただけます。</h4>
+                <h5>本科で創ったものをさらに発展させていったり、</h5>
+                <h5>本科を都合により欠席した場合の補習としてもお使いいただけます。</h5>
+                <h5>（補科は参加人数次第では１人一台HoloLensを使えない場合があります）</h5>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg">
+                        <a href="http://hololensnogakkou.peatix.com">
+                            申込みはこちら
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+<div class="services" id="pattern">
+    <div class="container">
+        <div class="text-center">
+            <h2>お勧めの受講パターン</h2>
+        </div>
+        <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <i class="fa fa-bicycle"></i>
+            <h3 style="color:red">おためし</h3>
+            <p>
+                単科での環境構築で自分ができるか、環境やレベル感を確かめていただいて、その後本科に移っていただきます。
+                Day1相当分を単科で済ましておけば本科でDay2-5を受講できるのでムダにはなりません。
+                もう一度環境構築手順を確認したい場合など、再度Day1-4を受講頂くことももちろん可能です。
+            </p>
+        </div>
+        <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+            <i class="fa fa-car"></i>
+            <h3 style="color:green">しっかり</h3>
+            <p>
+                基本的には本科でDay1-4をしっかり学んでいただきます。
+                進捗度合いに応じてどんどん先に進んでいただいても構いませんし、
+                ご自分のペースでゆっくり進めていっても構いません。
+                少人数制なので各自のペースや目標にあわせた対応が可能です。
+                欠席したり、4回で終わらなかった場合は、補科を利用していただきキャッチアップ頂けます。
+            </p>
+        </div>
+        <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
+            <i class="fa fa-plane"></i>
+            <h3 style="color:blue">ガッツリ</h3>
+            <p>
+                本科でDay1-4を学びながらも、適宜単科を受講いただいて、HoloLensを使う時間を確保しながら
+                ご自分のプロトタイプを納得行くまで作り上げます。
+                月一の補科をペースメーカーとして、触り足りない部分やもっと相談したい部分を単科をつかってさらに補うイメージです。
+            </p>
+        </div>
+        <div class="col-md-8 col-md-offset-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms">
+            <img src="img/course_pattern.png" class="img-responsive" alt="">
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-lg">
+                    <a href="http://hololensnogakkou.peatix.com">
+                        申込みはこちら
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container" id="about-us">
+        <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <h4>About Us</h4>
+            <p>
+                デジタルハリウッド大学院在学中より、AR/MRのインターフェースを研究。HoloLensが日本で発売されてない時点から興味を持ち、日本人で数少ないWave2で入手、以来ずっとHoloLensアプリの研究、開発を行う。おかげで本業がやばい。</p>
+            <!--<div class="contact-info">-->
+            <!--<ul>-->
+            <!--<li><i class="fa fa-home fa"></i>Suite 54 Elizebth Street, Victoria State Newyork, USA</li>-->
+            <!--<li><i class="fa fa-phone fa"></i> +38 000 129900</li>-->
+            <!--<li><i class="fa fa-envelope fa"></i> info@domain.net</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+        </div>
+
+        <!--<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">-->
+        <!--<div class="text-center">-->
+        <!--<h4>Photo Gallery</h4>-->
+        <!--<ul class="sidebar-gallery">-->
+        <!--<li><a href="#"><img src="img/gallery1.png" alt=""/></a></li>-->
+        <!--<li><a href="#"><img src="img/gallery2.png" alt=""/></a></li>-->
+        <!--<li><a href="#"><img src="img/gallery3.png" alt=""/></a></li>-->
+        <!--<li><a href="#"><img src="img/gallery4.png" alt=""/></a></li>-->
+        <!--<li><a href="#"><img src="img/gallery5.png" alt=""/></a></li>-->
+        <!--<li><a href="#"><img src="img/gallery6.png" alt=""/></a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
+            <div class="">
+                <h4>Registration</h4>
+                <p>ただいまPeatixにて受講者募集中です。少人数制なのでお早めに！</p>
+                <div class="text-center">
+                    <div class="btn-gamp">
+                        <a class="btn btn-default" href="http://hololensnogakkou.peatix.com">
+                            申込みはこちら！
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<div class="sub-footer">
+    <div class="container">
+        <div class="social-icon">
+            <div class="col-md-4">
+                <ul class="social-network">
+                    <li><a href="https://www.facebook.com/hololensnogakkou" target="_blank" 　class="fb tool-tip"
+                           title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                    <!--<li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>-->
+                    <!--<li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a>-->
+                    <!--</li>-->
+                    <!--<li><a href="#" class="linkedin tool-tip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>-->
+                    <!--<li><a href="#" class="ytube tool-tip" title="You Tube"><i class="fa fa-youtube-play"></i></a></li>-->
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-md-offset-4">
+            <div class="copyright">
+                &copy; HoloLensのガッコウ All Rights Reserved.
+                <div class="credits">
+                    <!--
+                        All the links in the footer should remain intact.
+                        You can delete the links only if you purchased the pro version.
+                        Licensing information: https://bootstrapmade.com/license/
+                        Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Day
+                    -->
+                    <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by <a
+                        href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script>wow = new WOW({}).init();</script>
+
+</body>
+</html>
