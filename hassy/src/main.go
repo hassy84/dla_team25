@@ -33,6 +33,22 @@ func notfoundHandler(w http.ResponseWriter, r *http.Request) {
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
+
+	router.GET("/test", func(c *gin.Context) {
+		// テンプレート設定
+		html := template.Must(template.ParseFiles("templates/base.html", "templates/test.html"))
+		router.SetHTMLTemplate(html)
+		c.HTML(http.StatusOK, "base.html", gin.H{})
+	})
+
+	router.GET("/main", func(c *gin.Context) {
+		// テンプレート設定
+		html := template.Must(template.ParseFiles("templates/base.html", "templates/main.html"))
+		router.SetHTMLTemplate(html)
+		c.HTML(http.StatusOK, "base.html", gin.H{})
+	})
+
+
 	router.GET("/", HandleTest)
 	return router
 }
@@ -43,4 +59,5 @@ func HandleTest(gc *gin.Context) {
 	gc.HTML(http.StatusOK, "list.tmpl", gin.H{
 		"title": "myName",
 	})
+
 }
