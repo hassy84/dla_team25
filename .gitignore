@@ -1,0 +1,10 @@
+
+# hassy
+# to remove intellij specific env 
+/hassy/.idea/
+/hassy/tmp/
+/hassy/bin/
+/hassy/*.test
+/hassy/*.swp
+
+
