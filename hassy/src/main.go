@@ -15,7 +15,8 @@ import (
 	//"bytes"
 	//"google.golang.org/appengine/datastore"
 	//"errors"
-	"html/template"
+	//"html/template"
+	"github.com/gin-gonic/contrib/renders/multitemplate"
 	//"github.com/mjibson/goon"
 	//"fmt"
 )
@@ -25,39 +26,53 @@ func init() {
 	http.Handle("/", router)
 }
 
-func notfoundHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotFound)
-	template.Must(template.ParseFiles("templates/notfound.html")).Execute(w, nil)
-}
-
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
-	router.LoadHTMLGlob("templates/*")
-
-	router.GET("/test", func(c *gin.Context) {
-		// テンプレート設定
-		html := template.Must(template.ParseFiles("templates/base.html", "templates/test.html"))
-		router.SetHTMLTemplate(html)
-		c.HTML(http.StatusOK, "base.html", gin.H{})
-	})
-
+	router.HTMLRender = createMyRender()
 	router.GET("/main", func(c *gin.Context) {
-		// テンプレート設定
-		html := template.Must(template.ParseFiles("templates/base.html", "templates/main.html"))
-		router.SetHTMLTemplate(html)
-		c.HTML(http.StatusOK, "base.html", gin.H{})
+		c.HTML(200, "main", gin.H{})
 	})
-
-
+	router.GET("/test", func(c *gin.Context) {
+		c.HTML(200, "test", gin.H{})
+	})
 	router.GET("/", HandleTest)
 	return router
+
+	//router.LoadHTMLGlob("templates/*")
+	//router.GET("/test", func(c *gin.Context) {
+	//	// テンプレート設定
+	//	html := template.Must(template.ParseFiles("templates/base.html", "templates/test.html", "templates/footer.html"))
+	//	router.SetHTMLTemplate(html)
+	//	c.HTML(http.StatusOK, "base.html", gin.H{})
+	//})
+	//router.GET("/main", func(c *gin.Context) {
+	//	// テンプレート設定
+	//	html := template.Must(template.ParseFiles("templates/base.html", "templates/main.html", "templates/footer.html"))
+	//	router.SetHTMLTemplate(html)
+	//	c.HTML(http.StatusOK, "base.html", gin.H{})
+	//})
+	//router.GET("/", HandleTest)
+	//return router
 }
+
+func createMyRender() multitemplate.Render {
+	r := multitemplate.New()
+	r.AddFromFiles("index", "templates/list.tmpl")
+	r.AddFromFiles("main", "templates/base.html", "templates/main.html", "templates/footer.html")
+	r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
+	return r
+}
+
+
+
+
 
 func HandleTest(gc *gin.Context) {
 	//	gc.String(http.StatusOK, fmt.Sprint("Hello World from Gin"))
 
-	gc.HTML(http.StatusOK, "list.tmpl", gin.H{
+	gc.HTML(http.StatusOK, "index", gin.H{
 		"title": "myName",
 	})
+
 
 }
