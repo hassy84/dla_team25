@@ -21,6 +21,9 @@ import (
 	//"fmt"
 	"fmt"
 	"encoding/json"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/urlfetch"
+	"google.golang.org/appengine/log"
 )
 
 func init() {
@@ -37,7 +40,7 @@ func SetupRouter() *gin.Engine {
 	router.GET("/test", func(c *gin.Context) {
 		c.HTML(200, "test", gin.H{})
 	})
-	router.GET("/", HandleTest)
+	router.GET("/", HandleToppage)
 	router.GET("/testJson", HandleJson)
 
 	return router
@@ -66,6 +69,58 @@ func createMyRender() multitemplate.Render {
 	r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
 	return r
 }
+
+
+
+func HandleToppage(gc *gin.Context) {
+	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
+
+
+	url := "http://localhost:8080/testJson"
+	c := appengine.NewContext(gc.Request)
+	parseClient := urlfetch.Client(c)
+	parseRes, ParseErr := parseClient.Get(url)
+	if ParseErr != nil {
+		gc.String(http.StatusOK, fmt.Sprint("Parseにしっぱいしました"))
+		return
+	}
+
+	defer parseRes.Body.Close()
+	result := make([]byte, parseRes.ContentLength)
+	parseRes.Body.Read(result)
+
+	var vList []VideoList
+	err := json.Unmarshal([]byte(result), &vList)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	log.Infof(c, "%v", fmt.Sprint(vList))
+	gc.JSON(http.StatusOK, vList)
+
+
+
+	//defer parseRes.Body.Close()
+	//
+	//result := make([]byte, parseRes.ContentLength)
+	//parseRes.Body.Read(result)
+	////Jasonという便利ライブラリを使って試してみる
+	//v, _ := jason.NewObjectFromBytes(result)
+	//var allEventtitle string = placeName + "のイベントです\n"
+	//currentEvent, _ := v.GetObjectArray("events")
+	//for _, value := range currentEvent {
+	//	name, _ := value.GetString("title")
+	//	place, _ := value.GetString("place")
+	//	allEventtitle = allEventtitle + name + "(" + place + ")" + "\n\n"
+	//}
+	//return allEventtitle
+
+
+
+}
+
+
+
 
 func HandleTest(gc *gin.Context) {
 	//	gc.String(http.StatusOK, fmt.Sprint("Hello World from Gin"))
@@ -112,8 +167,8 @@ func HandleJson(gc *gin.Context) {
 }
 
 type VideoList struct {
-	VideoId      string ` json:"VideoId" binding:"required"`
-	ThumbnailUrl string ` json:"ThumbnailUrl" binding:"required"`
-	Title        string ` json:"Title" binding:"required"`
-	Description  string ` json:"Description" `
+	VideoId      string ` json:"videoId" binding:"required"`
+	ThumbnailUrl string ` json:"thumbnailUrl" binding:"required"`
+	Title        string ` json:"title" binding:"required"`
+	Description  string ` json:"description" `
 }
