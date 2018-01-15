@@ -70,11 +70,8 @@ func createMyRender() multitemplate.Render {
 	return r
 }
 
-
-
 func HandleToppage(gc *gin.Context) {
 	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
-
 
 	url := "http://localhost:8080/testJson"
 	c := appengine.NewContext(gc.Request)
@@ -99,10 +96,6 @@ func HandleToppage(gc *gin.Context) {
 	//gc.JSON(http.StatusOK, vList) //単にJSONとして表示する場合
 	gc.HTML(http.StatusOK, "list", vList) //テンプレートに変数を渡す場合
 
-
-
-
-
 	//defer parseRes.Body.Close()
 	//
 	//result := make([]byte, parseRes.ContentLength)
@@ -118,20 +111,31 @@ func HandleToppage(gc *gin.Context) {
 	//}
 	//return allEventtitle
 
-
-
 }
-
 
 func HandleMain(gc *gin.Context) {
-	gc.HTML(http.StatusOK, "Main", gin.H{
-		"title": "myName",
-	})
+	url := "http://localhost:8080/testJson"
+	c := appengine.NewContext(gc.Request)
+	parseClient := urlfetch.Client(c)
+	parseRes, ParseErr := parseClient.Get(url)
+	if ParseErr != nil {
+		gc.String(http.StatusOK, fmt.Sprint("Parseにしっぱいしました"))
+		return
+	}
+
+	defer parseRes.Body.Close()
+	result := make([]byte, parseRes.ContentLength)
+	parseRes.Body.Read(result)
+
+	var vList []VideoList
+	err := json.Unmarshal([]byte(result), &vList)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	gc.HTML(http.StatusOK, "Main", vList) //テンプレートに変数を渡す場合
 }
-
-
-
-
 
 func HandleTest(gc *gin.Context) {
 	//	gc.String(http.StatusOK, fmt.Sprint("Hello World from Gin"))
@@ -172,7 +176,6 @@ func HandleJson(gc *gin.Context) {
 		fmt.Println(err)
 		return
 	}
-
 
 	gc.JSON(http.StatusOK, vList)
 }
