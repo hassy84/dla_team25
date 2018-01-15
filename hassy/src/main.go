@@ -23,7 +23,6 @@ import (
 	"encoding/json"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/urlfetch"
-	"google.golang.org/appengine/log"
 )
 
 func init() {
@@ -64,7 +63,7 @@ func SetupRouter() *gin.Engine {
 
 func createMyRender() multitemplate.Render {
 	r := multitemplate.New()
-	r.AddFromFiles("index", "templates/list.tmpl")
+	r.AddFromFiles("list", "templates/list.html")
 	r.AddFromFiles("main", "templates/base.html", "templates/main.html", "templates/footer.html")
 	r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
 	return r
@@ -95,8 +94,11 @@ func HandleToppage(gc *gin.Context) {
 		fmt.Println(err)
 		return
 	}
-	log.Infof(c, "%v", fmt.Sprint(vList))
-	gc.JSON(http.StatusOK, vList)
+
+	//gc.JSON(http.StatusOK, vList) //単にJSONとして表示する場合
+	gc.HTML(http.StatusOK, "list", vList) //テンプレートに変数を渡す場合
+
+
 
 
 
