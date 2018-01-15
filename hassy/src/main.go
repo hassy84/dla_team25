@@ -19,6 +19,8 @@ import (
 	"github.com/gin-gonic/contrib/renders/multitemplate"
 	//"github.com/mjibson/goon"
 	//"fmt"
+	"fmt"
+	"encoding/json"
 )
 
 func init() {
@@ -36,6 +38,8 @@ func SetupRouter() *gin.Engine {
 		c.HTML(200, "test", gin.H{})
 	})
 	router.GET("/", HandleTest)
+	router.GET("/testJson", HandleJson)
+
 	return router
 
 	//router.LoadHTMLGlob("templates/*")
@@ -63,16 +67,53 @@ func createMyRender() multitemplate.Render {
 	return r
 }
 
-
-
-
-
 func HandleTest(gc *gin.Context) {
 	//	gc.String(http.StatusOK, fmt.Sprint("Hello World from Gin"))
 
 	gc.HTML(http.StatusOK, "index", gin.H{
 		"title": "myName",
 	})
+}
+
+func HandleJson(gc *gin.Context) {
+	//var jsonString VideoList // VideoList型、ストラクト、変数
+	//jsonString.VideoId = "g2ag8t7AvX8"
+	//jsonString.ThumbnailUrl = "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg"
+	//jsonString.Title = "title1"
+	//jsonString.Description = "dummyDescription1"
+	//gc.JSON(http.StatusOK, jsonString)
+
+	var original_str = `
+[
+{
+"videoId" : "g2ag8t7AvX8",
+"thumbnailUrl" : "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg",
+"title" : "title1",
+"description" : "dummyDescription1"
+}
+,
+{
+"videoId" : "blfDtisFTyM",
+"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+"title" : "title2",
+"description" : "dummyDescription2"
+}
+]
+`
+	var vList []VideoList
+	err := json.Unmarshal([]byte(original_str), &vList)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 
+	gc.JSON(http.StatusOK, vList)
+}
+
+type VideoList struct {
+	VideoId      string ` json:"VideoId" binding:"required"`
+	ThumbnailUrl string ` json:"ThumbnailUrl" binding:"required"`
+	Title        string ` json:"Title" binding:"required"`
+	Description  string ` json:"Description" `
 }
