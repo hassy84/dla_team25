@@ -33,13 +33,13 @@ func init() {
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 	router.HTMLRender = createMyRender()
-	router.GET("/main", func(c *gin.Context) {
-		c.HTML(200, "main", gin.H{})
-	})
+	//router.GET("/main", func(c *gin.Context) {
+	//	c.HTML(200, "main", gin.H{})
+	//})
 	router.GET("/test", func(c *gin.Context) {
 		c.HTML(200, "test", gin.H{})
 	})
-	router.GET("/", HandleToppage)
+	router.GET("/", HandleMain)
 	router.GET("/testJson", HandleJson)
 
 	return router
@@ -66,6 +66,7 @@ func createMyRender() multitemplate.Render {
 	r.AddFromFiles("list", "templates/list.html")
 	r.AddFromFiles("main", "templates/base.html", "templates/main.html", "templates/footer.html")
 	r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
+	r.AddFromFiles("Main", "templates/base.html", "templates/top.html")
 	return r
 }
 
@@ -120,6 +121,14 @@ func HandleToppage(gc *gin.Context) {
 
 
 }
+
+
+func HandleMain(gc *gin.Context) {
+	gc.HTML(http.StatusOK, "Main", gin.H{
+		"title": "myName",
+	})
+}
+
 
 
 

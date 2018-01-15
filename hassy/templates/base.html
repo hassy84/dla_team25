@@ -1,24 +1,400 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-    <title>ベーす</title>
-    <!-- 共通のCSSなど -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
-    <!-- 共通のJSなど -->
-    <script src="https://ajax.googleapis.com/ajaxlibs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>team25 demo</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
+    <!-- =======================================================
+        Theme Name: Day
+        Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
 </head>
+
 <body>
-<div>
-    ここはBASE部分 part1
-    <!-- 呼び出し方 -->
-{{template "content"}}
-    ここはBASE部分 part2
-</div>
-{{template "footer"}}
+
+
+
+
+{{/*<header id="header">*/}}
+    {{/*<nav class="navbar navbar-default navbar-static-top" role="banner">*/}}
+        {{/*<div class="container">*/}}
+            {{/*<div class="navbar-header">*/}}
+                {{/*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">*/}}
+                    {{/*<span class="sr-only">Toggle navigation</span>*/}}
+                    {{/*<span class="icon-bar"></span>*/}}
+                    {{/*<span class="icon-bar"></span>*/}}
+                    {{/*<span class="icon-bar"></span>*/}}
+                {{/*</button>*/}}
+                {{/*<div class="navbar-brand">*/}}
+                    {{/*<a href="index.html"><h1>HoloLensのガッコウ</h1></a>*/}}
+                {{/*</div>*/}}
+            {{/*</div>*/}}
+            {{/*<div class="navbar-collapse collapse">*/}}
+                {{/*<div class="menu">*/}}
+                    {{/*<ul class="nav nav-tabs" role="tablist">*/}}
+                        {{/*<li role="presentation"><a href="index.html" class="active">Top</a></li>*/}}
+                        {{/*<li role="presentation"><a href="#keynote">HoloLensのガッコウとは</a></li>*/}}
+                        {{/*<li role="presentation"><a href="#features">特徴</a></li>*/}}
+                        {{/*<li role="presentation"><a href="#about-us">About Us</a></li>*/}}
+                        {{/*<li role="presentation"><a href="course.html">カリキュラムをみる</a></li>*/}}
+                    {{/*</ul>*/}}
+                {{/*</div>*/}}
+            {{/*</div>*/}}
+        {{/*</div><!--/.container-->*/}}
+    {{/*</nav><!--/nav-->*/}}
+{{/*</header><!--/header-->*/}}
+
+{{/*<div class="slider">*/}}
+    {{/*<div id="about-slider">*/}}
+        {{/*<div id="carousel-slider" class="carousel slide" data-ride="carousel">*/}}
+            {{/*<!-- Indicators -->*/}}
+            {{/*<ol class="carousel-indicators visible-xs">*/}}
+                {{/*<li data-target="#carousel-slider" data-slide-to="0" class="active"></li>*/}}
+                {{/*<li data-target="#carousel-slider" data-slide-to="1"></li>*/}}
+                {{/*<li data-target="#carousel-slider" data-slide-to="2"></li>*/}}
+            {{/*</ol>*/}}
+
+            {{/*<div class="carousel-inner">*/}}
+                {{/*<div class="item active">*/}}
+                    {{/*<img src="img/2_biz.png" class="img-responsive" alt="">*/}}
+                    {{/*<div class="carousel-caption">*/}}
+                        {{/*<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="1.0s">*/}}
+                            {{/*<h2>未来のビジネスを創りたい！</h2>*/}}
+                        {{/*</div>*/}}
+                        {{/*<div class="col-md-10 col-md-offset-1">*/}}
+                            {{/*<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">*/}}
+                                {{/*<p>そのためのカリキュラムがきまりました</p>*/}}
+                            {{/*</div>*/}}
+                        {{/*</div>*/}}
+                        {{/*<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="1.6s">*/}}
+                            {{/*<button type="button" class="btn btn-default btn-lg">*/}}
+                                {{/*<a href="course.html">*/}}
+                                    {{/*カリキュラムの詳細はこちら*/}}
+                                {{/*</a>*/}}
+                            {{/*</button>*/}}
+                        {{/*</div>*/}}
+                    {{/*</div>*/}}
+                {{/*</div>*/}}
+
+
+                {{/*<div class="item ">*/}}
+                    {{/*<div class="col-md-10 col-md-offset-1">*/}}
+                        {{/*<div>*/}}
+                            {{/*<div style="width: 80%; margin: auto">*/}}
+                                {{/*<img src="img/course_overall.png" class="img-responsive" alt="">*/}}
+                            {{/*</div>*/}}
+                        {{/*</div>*/}}
+                    {{/*</div>*/}}
+                {{/*</div>*/}}
+
+                {{/*<div class="item">*/}}
+                    {{/*<div class="col-md-10 col-md-offset-2">*/}}
+                        {{/*<div style="width: 80%">*/}}
+                            {{/*<div style="margin: auto">*/}}
+                                {{/*<img src="img/course_honka_171101.png" class="img-responsive" alt="">*/}}
+                            {{/*</div>*/}}
+                        {{/*</div>*/}}
+                    {{/*</div>*/}}
+                {{/*</div>*/}}
+
+                {{/*<div class="item">*/}}
+                    {{/*<img src="img/3_future.png" class="img-responsive" alt="">*/}}
+                    {{/*<div class="carousel-caption">*/}}
+                        {{/*<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">*/}}
+                            {{/*<h2>ヒトより0.5歩だけ早く</h2>*/}}
+                        {{/*</div>*/}}
+                        {{/*<div class="col-md-10 col-md-offset-1">*/}}
+                            {{/*<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">*/}}
+                                {{/*<p>今すぐ創り始められる未来があります</p>*/}}
+                            {{/*</div>*/}}
+                        {{/*</div>*/}}
+                        {{/*<div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.9s">*/}}
+                            {{/*<button type="button" class="btn btn-primary btn-lg">*/}}
+                                {{/*<a href="http://hololensnogakkou.peatix.com">*/}}
+                                    {{/*申込みはこちらへ！*/}}
+                                {{/*</a>*/}}
+                            {{/*</button>*/}}
+                        {{/*</div>*/}}
+                    {{/*</div>*/}}
+                {{/*</div>*/}}
+            {{/*</div>*/}}
+
+            {{/*<a class="left carousel-control hidden-xs" href="#carousel-slider" data-slide="prev">*/}}
+                {{/*<i class="fa fa-angle-left"></i>*/}}
+            {{/*</a>*/}}
+
+            {{/*<a class=" right carousel-control hidden-xs" href="#carousel-slider" data-slide="next">*/}}
+                {{/*<i class="fa fa-angle-right"></i>*/}}
+            {{/*</a>*/}}
+        {{/*</div> <!--/#carousel-slider-->*/}}
+    {{/*</div><!--/#about-slider-->*/}}
+{{/*</div><!--/#slider-->*/}}
+
+{{/*<div class="about" id="keynote">*/}}
+    {{/*<div class="container">*/}}
+        {{/*<div class="text-center">*/}}
+            {{/*<h2>HoloLensのガッコウ、本科募集開始！！</h2>*/}}
+            {{/*<h2>少人数制なのでお急ぎ下さい！！</h2>*/}}
+            {{/*<div class="col-md-10 col-md-offset-1">*/}}
+                {{/*<p>*/}}
+                    {{/*マイクロソフトからリリースされたHoloLens、その未来的な操作感にふれたかたも多いことでしょう。<br>*/}}
+                    {{/*自分のつくったキャラクターを現実世界にかさねてみたい、そういったクリエイターの方も多いのではないでしょうか。<br>*/}}
+                    {{/*でも自分はエンジニアじゃないから・・・プログラミングできないから・・・そんな方々にこそ未来を作って欲しい、<br>*/}}
+                    {{/*それが「HoloLensのガッコウ」を作ろうと思った原点です。<br>*/}}
+                    {{/*僕らエンジニアが未来を創れるのは当たり前、でも、エンジニアじゃないからこそ創れる未来もある。<br>*/}}
+                    {{/*そのお手伝いするためのガッコウです。<br>*/}}
+                    {{/*<br>*/}}
+                    {{/*クリエイター、デザイナー、プロデューサー、新規事業担当、全くのプログラミング未経験者でも大丈夫、<br>*/}}
+                    {{/*未来を創りたいという思いのある方、お待ちしています！*/}}
+                {{/*</p>*/}}
+            {{/*</div>*/}}
+
+            {{/*<div class="col-md-10 col-md-offset-1">*/}}
+                {{/*<div class="text-center">*/}}
+                    {{/*<button type="button" class="btn btn-default btn-lg">*/}}
+                        {{/*<a href="course.html">*/}}
+                            {{/*カリキュラム詳細はこちらへ*/}}
+                        {{/*</a>*/}}
+                    {{/*</button>*/}}
+                    {{/*<button type="button" class="btn btn-primary btn-lg">*/}}
+                        {{/*<a href="http://hololensnogakkou.peatix.com">*/}}
+                            {{/*申込みはこちら*/}}
+                        {{/*</a>*/}}
+                    {{/*</button>*/}}
+                {{/*</div>*/}}
+            {{/*</div>*/}}
+        {{/*</div>*/}}
+    {{/*</div>*/}}
+{{/*</div>*/}}
+
+<hr>
+
+{{template "content" .}}
+
+
+<hr>
+
+
+
+
+{{/*<div class="services" id="features">*/}}
+    {{/*<div class="container">*/}}
+        {{/*<div class="text-center">*/}}
+            {{/*<h2>4つの特徴</h2>*/}}
+        {{/*</div>*/}}
+        {{/*<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">*/}}
+            {{/*<i class="fa fa-heart-o"></i>*/}}
+            {{/*<h3>エンジニアじゃなくても大丈夫</h3>*/}}
+            {{/*<p>私はエンジニアじゃないから・・・プログラミング初心者だから・・・そんなあなたも大丈夫、Unity初心者の方でもちゃんとゴールできるよう、少人数、対面での授業に徹底的にこだわりました。</p>*/}}
+        {{/*</div>*/}}
+        {{/*<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">*/}}
+            {{/*<i class="fa fa-cloud"></i>*/}}
+            {{/*<h3>特別な機材不要</h3>*/}}
+            {{/*<p>*/}}
+                {{/*ハイスペックなパソコンなんて持ってない・・・HoloLensは高いし・・・そんなあなたも大丈夫、一般的なWindows10パソコンさえあればちゃんとアプリが作れます。HoloLensも1人一台ご用意します。</p>*/}}
+        {{/*</div>*/}}
+        {{/*<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">*/}}
+            {{/*<i class="fa fa-book"></i>*/}}
+            {{/*<h3>一ヶ月でOK！</h3>*/}}
+            {{/*<p>まとまった時間がなかなかとれなくて・・・そんなあなたも大丈夫、週一回（合計4回）で、HoloLensアプリを創るための基本が身につきます。あとはあなたのクリエイティビティで磨きをかけて下さい！</p>*/}}
+        {{/*</div>*/}}
+        {{/*<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms">*/}}
+            {{/*<i class="fa fa-gear"></i>*/}}
+            {{/*<h3>フォローアップも万全</h3>*/}}
+            {{/*<p>仕事が忙しいから欠席するかも・・・そんなあなたも大丈夫、週末に行うフォローアップ講座（補習授業）で欠席した回の内容を確認、しかもこのフォローアップ講座、一年間追加料金無しで通って頂けます！</p>*/}}
+        {{/*</div>*/}}
+        {{/*<div class="col-md-10 col-md-offset-1">*/}}
+            {{/*<div class="text-center">*/}}
+                {{/*<button type="button" class="btn btn-default btn-lg">*/}}
+                    {{/*<a href="course.html">*/}}
+                        {{/*カリキュラム詳細はこちらへ*/}}
+                    {{/*</a>*/}}
+                {{/*</button>*/}}
+                {{/*<button type="button" class="btn btn-primary btn-lg">*/}}
+                    {{/*<a href="http://hololensnogakkou.peatix.com">*/}}
+                        {{/*申込みはこちら*/}}
+                    {{/*</a>*/}}
+                {{/*</button>*/}}
+            {{/*</div>*/}}
+        {{/*</div>*/}}
+    {{/*</div>*/}}
+{{/*</div>*/}}
+
+<!--<section class="action">-->
+<!--<div class="container">-->
+<!--<div class="left-text hidden-xs">-->
+<!--<h4>Amet porro numquam ratione</h4>-->
+<!--<p><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi ut explicabo magni-->
+<!--sapiente.</em><br><br>Inventore at quia, vel in repellendus, cumque dolorem autem ad quidem mollitia-->
+<!--porro blanditiis atque rerum debitis eveniet nostrum aliquam. Sint aperiam expedita sapiente amet-->
+<!--officia quis perspiciatis adipisci, iure dolorem esse exercitationem!</p>-->
+<!--</div>-->
+<!--<div class="right-image hidden-xs"></div>-->
+<!--</div>-->
+<!--</section>-->
+
+<!--<div class="gallery" id="gallery">-->
+<!--<div class="text-center">-->
+<!--<h2>Gallery</h2>-->
+<!--<p>Coming soon...</p>-->
+<!--<p>開講の準備状況などを写真でお伝えします</p>-->
+<!--</div>-->
+<!--&lt;!&ndash;<div class="container">		&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;<figure class="effect-marley">&ndash;&gt;-->
+<!--&lt;!&ndash;<img src="img/8.jpg" alt="" class="img-responsive"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<figcaption>&ndash;&gt;-->
+<!--&lt;!&ndash;<h4>sweet marley</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;<p>Marley tried to convince her but she was not interested.</p>				&ndash;&gt;-->
+<!--&lt;!&ndash;</figcaption>			&ndash;&gt;-->
+<!--&lt;!&ndash;</figure>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;<figure class="effect-marley">&ndash;&gt;-->
+<!--&lt;!&ndash;<img src="img/9.jpg" alt="" class="img-responsive"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<figcaption>&ndash;&gt;-->
+<!--&lt;!&ndash;<h4>sweet marley</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;<p>Marley tried to convince her but she was not interested.</p>				&ndash;&gt;-->
+<!--&lt;!&ndash;</figcaption>			&ndash;&gt;-->
+<!--&lt;!&ndash;</figure>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;<figure class="effect-marley">&ndash;&gt;-->
+<!--&lt;!&ndash;<img src="img/10.jpg" alt="" class="img-responsive"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<figcaption>&ndash;&gt;-->
+<!--&lt;!&ndash;<h4>sweet marley</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;<p>Marley tried to convince her but she was not interested.</p>				&ndash;&gt;-->
+<!--&lt;!&ndash;</figcaption>			&ndash;&gt;-->
+<!--&lt;!&ndash;</figure>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;<figure class="effect-marley">&ndash;&gt;-->
+<!--&lt;!&ndash;<img src="img/11.jpg" alt="" class="img-responsive"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<figcaption>&ndash;&gt;-->
+<!--&lt;!&ndash;<h4>sweet marley</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;<p>Marley tried to convince her but she was not interested.</p>				&ndash;&gt;-->
+<!--&lt;!&ndash;</figcaption>			&ndash;&gt;-->
+<!--&lt;!&ndash;</figure>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;<figure class="effect-marley">&ndash;&gt;-->
+<!--&lt;!&ndash;<img src="img/12.jpg" alt="" class="img-responsive"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<figcaption>&ndash;&gt;-->
+<!--&lt;!&ndash;<h4>sweet marley</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;<p>Marley tried to convince her but she was not interested.</p>				&ndash;&gt;-->
+<!--&lt;!&ndash;</figcaption>			&ndash;&gt;-->
+<!--&lt;!&ndash;</figure>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;<figure class="effect-marley">&ndash;&gt;-->
+<!--&lt;!&ndash;<img src="img/13.jpg" alt="" class="img-responsive"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<figcaption>&ndash;&gt;-->
+<!--&lt;!&ndash;<h4>sweet marley</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;<p>Marley tried to convince her but she was not interested.</p>				&ndash;&gt;-->
+<!--&lt;!&ndash;</figcaption>			&ndash;&gt;-->
+<!--&lt;!&ndash;</figure>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</div>-->
+
+{{/*<footer>*/}}
+    {{/*<div class="container" id="about-us">*/}}
+        {{/*<div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">*/}}
+            {{/*<h4>About Us</h4>*/}}
+            {{/*<p>*/}}
+                {{/*デジタルハリウッド大学院在学中より、AR/MRのインターフェースを研究。HoloLensが日本で発売されてない時点から興味を持ち、日本人で数少ないWave2で入手、以来ずっとHoloLensアプリの研究、開発を行う。おかげで本業がやばい。</p>*/}}
+            {{/*<!--<div class="contact-info">-->*/}}
+            {{/*<!--<ul>-->*/}}
+            {{/*<!--<li><i class="fa fa-home fa"></i>Suite 54 Elizebth Street, Victoria State Newyork, USA</li>-->*/}}
+            {{/*<!--<li><i class="fa fa-phone fa"></i> +38 000 129900</li>-->*/}}
+            {{/*<!--<li><i class="fa fa-envelope fa"></i> info@domain.net</li>-->*/}}
+            {{/*<!--</ul>-->*/}}
+            {{/*<!--</div>-->*/}}
+        {{/*</div>*/}}
+
+        {{/*<!--<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">-->*/}}
+        {{/*<!--<div class="text-center">-->*/}}
+        {{/*<!--<h4>Photo Gallery</h4>-->*/}}
+        {{/*<!--<ul class="sidebar-gallery">-->*/}}
+        {{/*<!--<li><a href="#"><img src="img/gallery1.png" alt=""/></a></li>-->*/}}
+        {{/*<!--<li><a href="#"><img src="img/gallery2.png" alt=""/></a></li>-->*/}}
+        {{/*<!--<li><a href="#"><img src="img/gallery3.png" alt=""/></a></li>-->*/}}
+        {{/*<!--<li><a href="#"><img src="img/gallery4.png" alt=""/></a></li>-->*/}}
+        {{/*<!--<li><a href="#"><img src="img/gallery5.png" alt=""/></a></li>-->*/}}
+        {{/*<!--<li><a href="#"><img src="img/gallery6.png" alt=""/></a></li>-->*/}}
+        {{/*<!--</ul>-->*/}}
+        {{/*<!--</div>-->*/}}
+        {{/*<!--</div>-->*/}}
+
+        {{/*<div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">*/}}
+            {{/*<div class="">*/}}
+                {{/*<h4>Registration</h4>*/}}
+                {{/*<p>ただいまPeatixにて受講者募集中です。少人数制なのでお早めに！</p>*/}}
+                {{/*<div class="text-center">*/}}
+                    {{/*<div class="btn-gamp">*/}}
+                        {{/*<a class="btn btn-default" href="http://hololensnogakkou.peatix.com">*/}}
+                            {{/*申込みはこちらへ！*/}}
+                        {{/*</a>*/}}
+                    {{/*</div>*/}}
+                {{/*</div>*/}}
+            {{/*</div>*/}}
+        {{/*</div>*/}}
+
+    {{/*</div>*/}}
+{{/*</footer>*/}}
+
+{{/*<div class="sub-footer">*/}}
+    {{/*<div class="container">*/}}
+        {{/*<div class="social-icon">*/}}
+            {{/*<div class="col-md-4">*/}}
+                {{/*<ul class="social-network">*/}}
+                    {{/*<!--<li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>-->*/}}
+                    {{/*<!--<li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a>-->*/}}
+                    {{/*<!--</li>-->*/}}
+                    {{/*<!--<li><a href="#" class="linkedin tool-tip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>-->*/}}
+                    {{/*<!--<li><a href="#" class="ytube tool-tip" title="You Tube"><i class="fa fa-youtube-play"></i></a></li>-->*/}}
+                {{/*</ul>*/}}
+            {{/*</div>*/}}
+        {{/*</div>*/}}
+
+        {{/*<div class="col-md-4 col-md-offset-4">*/}}
+            {{/*<div class="copyright">*/}}
+                {{/*&copy; HoloLensのガッコウ All Rights Reserved.*/}}
+                {{/*<div class="credits">*/}}
+                    {{/*<!--*/}}
+                        {{/*All the links in the footer should remain intact.*/}}
+                        {{/*You can delete the links only if you purchased the pro version.*/}}
+                        {{/*Licensing information: https://bootstrapmade.com/license/*/}}
+                        {{/*Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Day*/}}
+                    {{/*-->*/}}
+                    {{/*<a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by <a*/}}
+                        {{/*href="https://bootstrapmade.com/">BootstrapMade</a>*/}}
+                {{/*</div>*/}}
+            {{/*</div>*/}}
+        {{/*</div>*/}}
+    {{/*</div>*/}}
+{{/*</div>*/}}
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script>wow = new WOW({}).init();</script>
+
 </body>
 </html>
