@@ -37,8 +37,10 @@ func SetupRouter() *gin.Engine {
 	//router.GET("/main", func(c *gin.Context) {
 	//	c.HTML(200, "main", gin.H{})
 	//})
-	router.GET("/test", func(c *gin.Context) {
-		c.HTML(200, "test", gin.H{})
+	router.GET("/test", func(gc *gin.Context) {
+		c := appengine.NewContext(gc.Request)
+		returnString, _ := appengine.ModuleHostname(c, "", "", "")
+		gc.String(http.StatusOK, fmt.Sprint(returnString))
 	})
 	router.GET("/", HandleMain)
 	router.GET("/testJson", HandleJson)
@@ -71,60 +73,49 @@ func createMyRender() multitemplate.Render {
 	return r
 }
 
-func HandleToppage(gc *gin.Context) {
-	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
-
-//	url := "http://localhost:8080/testJson"
-	url := "https://team25-demo.appspot.com/testJson"
-
-	c := appengine.NewContext(gc.Request)
-	parseClient := urlfetch.Client(c)
-	parseRes, ParseErr := parseClient.Get(url)
-	if ParseErr != nil {
-		gc.String(http.StatusOK, fmt.Sprint("Parseにしっぱいしました"))
-		return
-	}
-
-	defer parseRes.Body.Close()
-	result := make([]byte, parseRes.ContentLength)
-	parseRes.Body.Read(result)
-
-	var vList []VideoList
-	err := json.Unmarshal([]byte(result), &vList)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	//gc.JSON(http.StatusOK, vList) //単にJSONとして表示する場合
-	gc.HTML(http.StatusOK, "list", vList) //テンプレートに変数を渡す場合
-
-	//defer parseRes.Body.Close()
-	//
-	//result := make([]byte, parseRes.ContentLength)
-	//parseRes.Body.Read(result)
-	////Jasonという便利ライブラリを使って試してみる
-	//v, _ := jason.NewObjectFromBytes(result)
-	//var allEventtitle string = placeName + "のイベントです\n"
-	//currentEvent, _ := v.GetObjectArray("events")
-	//for _, value := range currentEvent {
-	//	name, _ := value.GetString("title")
-	//	place, _ := value.GetString("place")
-	//	allEventtitle = allEventtitle + name + "(" + place + ")" + "\n\n"
-	//}
-	//return allEventtitle
-
-}
+//func HandleToppage(gc *gin.Context) {
+//	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
+//
+////	url := "http://localhost:8080/testJson"
+////	url := "https://team25-demo.appspot.com/testJson"
+//	url := "*/testJson"
+//
+//	c := appengine.NewContext(gc.Request)
+//	parseClient := urlfetch.Client(c)
+//	parseRes, ParseErr := parseClient.Get(url)
+//	if ParseErr != nil {
+//		gc.String(http.StatusOK, fmt.Sprint("Parseにしっぱいしました"))
+//		return
+//	}
+//
+//	defer parseRes.Body.Close()
+//	result := make([]byte, parseRes.ContentLength)
+//	parseRes.Body.Read(result)
+//
+//	var vList []VideoList
+//	err := json.Unmarshal([]byte(result), &vList)
+//	if err != nil {
+//		fmt.Println(err)
+//		return
+//	}
+//
+//	//gc.JSON(http.StatusOK, vList) //単にJSONとして表示する場合
+//	gc.HTML(http.StatusOK, "list", vList) //テンプレートに変数を渡す場合
+//}
 
 func HandleMain(gc *gin.Context) {
-	//url := "http://localhost:8080/testJson"
-	url := "https://team25-demo.appspot.com/testJson"
 	c := appengine.NewContext(gc.Request)
+
+	//url := "http://localhost:8080/testJson"
+	//	url := "https://team25-demo.appspot.com/testJson"
+	returnString, _ := appengine.ModuleHostname(c, "", "", "")
+	url := "http://" + returnString + "/testJson"
+
 	parseClient := urlfetch.Client(c)
 	parseRes, ParseErr := parseClient.Get(url)
 	if ParseErr != nil {
-		gc.String(http.StatusOK, fmt.Sprint("Parseにしっぱいしました"))
-		log.Errorf(c, "Error1: %v", ParseErr.Error())
+		gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
+		log.Errorf(c, "Error1: %v", ParseErr.Error(), url)
 		return
 	}
 
