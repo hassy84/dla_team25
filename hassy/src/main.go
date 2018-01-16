@@ -23,6 +23,7 @@ import (
 	"encoding/json"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/urlfetch"
+	"google.golang.org/appengine/log"
 )
 
 func init() {
@@ -73,7 +74,9 @@ func createMyRender() multitemplate.Render {
 func HandleToppage(gc *gin.Context) {
 	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
 
-	url := "http://localhost:8080/testJson"
+//	url := "http://localhost:8080/testJson"
+	url := "https://team25-demo.appspot.com/testJson"
+
 	c := appengine.NewContext(gc.Request)
 	parseClient := urlfetch.Client(c)
 	parseRes, ParseErr := parseClient.Get(url)
@@ -114,12 +117,14 @@ func HandleToppage(gc *gin.Context) {
 }
 
 func HandleMain(gc *gin.Context) {
-	url := "http://localhost:8080/testJson"
+	//url := "http://localhost:8080/testJson"
+	url := "https://team25-demo.appspot.com/testJson"
 	c := appengine.NewContext(gc.Request)
 	parseClient := urlfetch.Client(c)
 	parseRes, ParseErr := parseClient.Get(url)
 	if ParseErr != nil {
 		gc.String(http.StatusOK, fmt.Sprint("Parseにしっぱいしました"))
+		log.Errorf(c, "Error1: %v", ParseErr.Error())
 		return
 	}
 
@@ -158,15 +163,43 @@ func HandleJson(gc *gin.Context) {
 {
 "videoId" : "g2ag8t7AvX8",
 "thumbnailUrl" : "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg",
-"title" : "title1",
-"description" : "dummyDescription1"
+"title" : "title1title1title1title1",
+"description" : "dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1"
 }
 ,
 {
 "videoId" : "blfDtisFTyM",
 "thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
-"title" : "title2",
-"description" : "dummyDescription2"
+"title" : "title2InShort",
+"description" : "dummyDescription2InShortCase"
+}
+,
+{
+"videoId" : "blfDtisFTyM",
+"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+"title" : "title2InShort",
+"description" : "dummyDescription2InShortCase"
+}
+,
+{
+"videoId" : "blfDtisFTyM",
+"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+"title" : "title2InShort",
+"description" : "dummyDescription2InShortCase"
+}
+,
+{
+"videoId" : "blfDtisFTyM",
+"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+"title" : "title2InShort",
+"description" : "dummyDescription2InShortCase"
+}
+,
+{
+"videoId" : "blfDtisFTyM",
+"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+"title" : "title2InShort",
+"description" : "dummyDescription2InShortCase"
 }
 ]
 `
