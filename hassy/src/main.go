@@ -67,8 +67,8 @@ func createMyRender() multitemplate.Render {
 	//r.AddFromFiles("list", "templates/list.html")
 	//r.AddFromFiles("main", "templates/base.html", "templates/main.html", "templates/footer.html")
 	//r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
-	r.AddFromFiles("Top", "templates/base.html", "templates/top.html")
-	r.AddFromFiles("Result", "templates/base.html", "templates/Result.html")
+	r.AddFromFiles("Top", "templates/base.html", "templates/top.html", "templates/inputPart.html")
+	r.AddFromFiles("Result", "templates/base.html", "templates/Result.html", "templates/inputPart.html")
 
 	return r
 }

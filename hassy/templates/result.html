@@ -1,19 +1,14 @@
 {{define "content"}}
 
+{{template "inoutModule" .}}
+
+
+<hr>
+
 <div class="gallery">
-
-    <div class="text-center">
-        <form action="/result" method="post">
-            <div><textarea name="content" rows="3" cols="60"></textarea></div>
-            <div><input type="submit" value="Sign Guestbook"></div>
-        </form>
-    </div>
-
     <div class="text-center">
         <h2>検索結果一覧</h2>
     </div>
-
-
     <div class="container">
     {{range .}}
         <div class="col-md-4">
