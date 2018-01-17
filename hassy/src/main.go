@@ -34,16 +34,14 @@ func init() {
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 	router.HTMLRender = createMyRender()
-	//router.GET("/main", func(c *gin.Context) {
-	//	c.HTML(200, "main", gin.H{})
-	//})
+	router.GET("/", HandleTop)
+	router.POST("/result", HandleResult)
+	router.GET("/testJson", HandleTestJson)
 	router.GET("/test", func(gc *gin.Context) {
 		c := appengine.NewContext(gc.Request)
 		returnString, _ := appengine.ModuleHostname(c, "", "", "")
 		gc.String(http.StatusOK, fmt.Sprint(returnString))
 	})
-	router.GET("/", HandleMain)
-	router.GET("/testJson", HandleJson)
 
 	return router
 
@@ -66,12 +64,46 @@ func SetupRouter() *gin.Engine {
 
 func createMyRender() multitemplate.Render {
 	r := multitemplate.New()
-	r.AddFromFiles("list", "templates/list.html")
-	r.AddFromFiles("main", "templates/base.html", "templates/main.html", "templates/footer.html")
-	r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
-	r.AddFromFiles("Main", "templates/base.html", "templates/top.html")
+	//r.AddFromFiles("list", "templates/list.html")
+	//r.AddFromFiles("main", "templates/base.html", "templates/main.html", "templates/footer.html")
+	//r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
+	r.AddFromFiles("Top", "templates/base.html", "templates/top.html")
+	r.AddFromFiles("Result", "templates/base.html", "templates/Result.html")
+
 	return r
 }
+
+func HandleTop(gc *gin.Context) {
+	//c := appengine.NewContext(gc.Request)
+	//
+	////url := "http://localhost:8080/testJson"
+	////	url := "https://team25-demo.appspot.com/testJson"
+	//returnString, _ := appengine.ModuleHostname(c, "", "", "")
+	//url := "http://" + returnString + "/testJson"
+	//
+	//parseClient := urlfetch.Client(c)
+	//parseRes, ParseErr := parseClient.Get(url)
+	//if ParseErr != nil {
+	//	gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
+	//	log.Errorf(c, "Error1: %v", ParseErr.Error(), url)
+	//	return
+	//}
+	//
+	//defer parseRes.Body.Close()
+	//result := make([]byte, parseRes.ContentLength)
+	//parseRes.Body.Read(result)
+	//
+	//var vList []VideoList
+	//err := json.Unmarshal([]byte(result), &vList)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+
+	gc.HTML(http.StatusOK, "Top", gin.H{}) //テンプレートに変数を渡す場合
+}
+
+
 
 //func HandleToppage(gc *gin.Context) {
 //	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
@@ -103,7 +135,7 @@ func createMyRender() multitemplate.Render {
 //	gc.HTML(http.StatusOK, "list", vList) //テンプレートに変数を渡す場合
 //}
 
-func HandleMain(gc *gin.Context) {
+func HandleResult(gc *gin.Context) {
 	c := appengine.NewContext(gc.Request)
 
 	//url := "http://localhost:8080/testJson"
@@ -130,18 +162,18 @@ func HandleMain(gc *gin.Context) {
 		return
 	}
 
-	gc.HTML(http.StatusOK, "Main", vList) //テンプレートに変数を渡す場合
+	gc.HTML(http.StatusOK, "Result", vList) //テンプレートに変数を渡す場合
 }
 
-func HandleTest(gc *gin.Context) {
-	//	gc.String(http.StatusOK, fmt.Sprint("Hello World from Gin"))
+//func HandleTest(gc *gin.Context) {
+//	//	gc.String(http.StatusOK, fmt.Sprint("Hello World from Gin"))
+//
+//	gc.HTML(http.StatusOK, "index", gin.H{
+//		"title": "myName",
+//	})
+//}
 
-	gc.HTML(http.StatusOK, "index", gin.H{
-		"title": "myName",
-	})
-}
-
-func HandleJson(gc *gin.Context) {
+func HandleTestJson(gc *gin.Context) {
 	//var jsonString VideoList // VideoList型、ストラクト、変数
 	//jsonString.VideoId = "g2ag8t7AvX8"
 	//jsonString.ThumbnailUrl = "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg"
@@ -155,7 +187,7 @@ func HandleJson(gc *gin.Context) {
 "videoId" : "g2ag8t7AvX8",
 "thumbnailUrl" : "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg",
 "title" : "title1title1title1title1",
-"description" : "dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1dummyDescription1"
+"description" : "dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description "
 }
 ,
 {
@@ -175,8 +207,8 @@ func HandleJson(gc *gin.Context) {
 {
 "videoId" : "blfDtisFTyM",
 "thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
-"title" : "title2InShort",
-"description" : "dummyDescription2InShortCase"
+"title" : "日本語タイトル",
+"description" : "日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。"
 }
 ,
 {
