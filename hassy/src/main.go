@@ -11,6 +11,7 @@ import (
 	"google.golang.org/appengine/log"
 	"golang.org/x/net/context"
 	"time"
+	"strings"
 )
 
 
@@ -38,7 +39,7 @@ func SetupRouter() *gin.Engine {
 func createMyRender() multitemplate.Render {
 	r := multitemplate.New()
 	r.AddFromFiles("Top", "templates/base.html", "templates/top.html", "templates/inputPart.html")
-	r.AddFromFiles("Result", "templates/base.html", "templates/Result.html", "templates/inputPart.html")
+	r.AddFromFiles("Result", "templates/base.html", "templates/result.html", "templates/inputPart.html")
 
 	return r
 }
@@ -126,12 +127,26 @@ func HandleResult(gc *gin.Context) {
 //	url := "http://" + currentHostName + "/testJson"
 //	vList, perr := GetVListFromDummy(aec, url)
 
-	qString := gc.PostForm("qString")
-	log.Infof(aec, qString)
 
+	tempQString := gc.PostForm("qString")
+	tempQString = strings.Replace(tempQString, "　", " ", -1) //全角スペースは半角に置き換え
+	splitStrings := strings.Split(tempQString, " " ) //半角スペースで分割
+	var qString string
+	if len(splitStrings) == 1 {
+		qString = splitStrings[0]
+	}else{
+		for i, eachString := range splitStrings{
+			if i != 0 {
+				qString = qString + ","
+			}
+			qString = qString + eachString
+		}
+	}
+	log.Infof(aec, qString)
 	url := "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&&" +
 		"key=AIzaSyD4HAyfiPbu4QxhMEKgyOO3iAc-Snb1kZw&q=" + qString
 	vList, perr := GetVListFromYoutube(aec, url)
+
 
 	if perr != nil {
 		gc.String(http.StatusOK, fmt.Sprint("Error1: ", perr.Error()))
