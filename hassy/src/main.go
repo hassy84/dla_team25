@@ -3,22 +3,7 @@ package main
 import (
 	"net/http"
 	"github.com/gin-gonic/gin"
-	//"fmt"
-	//"strconv"
-	//"io/ioutil"
-	//"google.golang.org/appengine"
-	//"google.golang.org/appengine/urlfetch"
-	//"google.golang.org/appengine/log"
-	//"encoding/json"
-	//"math"
-	//"github.com/mjibson/goon"
-	//"bytes"
-	//"google.golang.org/appengine/datastore"
-	//"errors"
-	//"html/template"
 	"github.com/gin-gonic/contrib/renders/multitemplate"
-	//"github.com/mjibson/goon"
-	//"fmt"
 	"fmt"
 	"encoding/json"
 	"google.golang.org/appengine"
@@ -27,6 +12,7 @@ import (
 	"golang.org/x/net/context"
 	"time"
 )
+
 
 func init() {
 	router := SetupRouter()
@@ -46,29 +32,11 @@ func SetupRouter() *gin.Engine {
 	})
 
 	return router
-
-	//router.LoadHTMLGlob("templates/*")
-	//router.GET("/test", func(c *gin.Context) {
-	//	// テンプレート設定
-	//	html := template.Must(template.ParseFiles("templates/base.html", "templates/test.html", "templates/footer.html"))
-	//	router.SetHTMLTemplate(html)
-	//	c.HTML(http.StatusOK, "base.html", gin.H{})
-	//})
-	//router.GET("/main", func(c *gin.Context) {
-	//	// テンプレート設定
-	//	html := template.Must(template.ParseFiles("templates/base.html", "templates/main.html", "templates/footer.html"))
-	//	router.SetHTMLTemplate(html)
-	//	c.HTML(http.StatusOK, "base.html", gin.H{})
-	//})
-	//router.GET("/", HandleTest)
-	//return router
 }
+
 
 func createMyRender() multitemplate.Render {
 	r := multitemplate.New()
-	//r.AddFromFiles("list", "templates/list.html")
-	//r.AddFromFiles("main", "templates/base.html", "templates/main.html", "templates/footer.html")
-	//r.AddFromFiles("test", "templates/base.html", "templates/test.html", "templates/footer.html")
 	r.AddFromFiles("Top", "templates/base.html", "templates/top.html", "templates/inputPart.html")
 	r.AddFromFiles("Result", "templates/base.html", "templates/Result.html", "templates/inputPart.html")
 
@@ -76,64 +44,10 @@ func createMyRender() multitemplate.Render {
 }
 
 func HandleTop(gc *gin.Context) {
-	//c := appengine.NewContext(gc.Request)
-	//
-	////url := "http://localhost:8080/testJson"
-	////	url := "https://team25-demo.appspot.com/testJson"
-	//returnString, _ := appengine.ModuleHostname(c, "", "", "")
-	//url := "http://" + returnString + "/testJson"
-	//
-	//parseClient := urlfetch.Client(c)
-	//parseRes, ParseErr := parseClient.Get(url)
-	//if ParseErr != nil {
-	//	gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
-	//	log.Errorf(c, "Error1: %v", ParseErr.Error(), url)
-	//	return
-	//}
-	//
-	//defer parseRes.Body.Close()
-	//result := make([]byte, parseRes.ContentLength)
-	//parseRes.Body.Read(result)
-	//
-	//var vList []VideoList
-	//err := json.Unmarshal([]byte(result), &vList)
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-
-	gc.HTML(http.StatusOK, "Top", gin.H{}) //テンプレートに変数を渡す場合
+	gc.HTML(http.StatusOK, "Top", gin.H{})
 }
 
-//func HandleToppage(gc *gin.Context) {
-//	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
-//
-////	url := "http://localhost:8080/testJson"
-////	url := "https://team25-demo.appspot.com/testJson"
-//	url := "*/testJson"
-//
-//	c := appengine.NewContext(gc.Request)
-//	parseClient := urlfetch.Client(c)
-//	parseRes, ParseErr := parseClient.Get(url)
-//	if ParseErr != nil {
-//		gc.String(http.StatusOK, fmt.Sprint("Parseにしっぱいしました"))
-//		return
-//	}
-//
-//	defer parseRes.Body.Close()
-//	result := make([]byte, parseRes.ContentLength)
-//	parseRes.Body.Read(result)
-//
-//	var vList []VideoList
-//	err := json.Unmarshal([]byte(result), &vList)
-//	if err != nil {
-//		fmt.Println(err)
-//		return
-//	}
-//
-//	//gc.JSON(http.StatusOK, vList) //単にJSONとして表示する場合
-//	gc.HTML(http.StatusOK, "list", vList) //テンプレートに変数を渡す場合
-//}
+
 
 func GetVListFromDummy(aec context.Context, url string) ([]VideoList, error) {
 	parseClient := urlfetch.Client(aec)
@@ -162,7 +76,6 @@ func GetVListFromDummy(aec context.Context, url string) ([]VideoList, error) {
 }
 
 func GetVListFromYoutube(aec context.Context, url string) ([]VideoList, error) {
-	//log.Infof(aec, url)
 
 	parseClient := urlfetch.Client(aec)
 	parseRes, ParseErr := parseClient.Get(url)
@@ -173,8 +86,6 @@ func GetVListFromYoutube(aec context.Context, url string) ([]VideoList, error) {
 		log.Errorf(aec, errMessage)
 		return nil, fmt.Errorf("%s", errMessage)
 	}
-
-//	log.Infof(aec, fmt.Sprint(parseRes))
 
 	defer parseRes.Body.Close()
 	result := make([]byte, parseRes.ContentLength)
@@ -189,11 +100,12 @@ func GetVListFromYoutube(aec context.Context, url string) ([]VideoList, error) {
 		return nil, fmt.Errorf("%s", errMessage)
 	}
 
-//	log.Infof(aec, fmt.Sprint(youtubeResult.Items[0].Snippet.Description))
-
 	vList := make([]VideoList, 0)
 	allResult := youtubeResult.Items
 	for i, eachResult := range allResult {
+		if eachResult.ID.VideoID == "" {
+			continue
+		}
 		var tempVList VideoList
 		log.Infof(aec, fmt.Sprint(i, " / ", eachResult.Snippet.Title))
 		tempVList.VideoId = eachResult.ID.VideoID
@@ -205,15 +117,17 @@ func GetVListFromYoutube(aec context.Context, url string) ([]VideoList, error) {
 	return vList, nil
 }
 
+
 func HandleResult(gc *gin.Context) {
 	aec := appengine.NewContext(gc.Request)
 
-	qString := gc.PostForm("qString")
-//	log.Infof(aec, qString)
+//ダミーのJSONを使う場合はここを切り替える
+//	currentHostName, _ := appengine.ModuleHostname(aec, "", "", "")
+//	url := "http://" + currentHostName + "/testJson"
+//	vList, perr := GetVListFromDummy(aec, url)
 
-	//currentHostName, _ := appengine.ModuleHostname(aec, "", "", "")
-	//url := "http://" + currentHostName + "/testJson"
-	//vList, perr := GetVListFromDummy(aec, url)
+	qString := gc.PostForm("qString")
+	log.Infof(aec, qString)
 
 	url := "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&&" +
 		"key=AIzaSyD4HAyfiPbu4QxhMEKgyOO3iAc-Snb1kZw&q=" + qString
@@ -224,42 +138,10 @@ func HandleResult(gc *gin.Context) {
 	} else {
 		gc.HTML(http.StatusOK, "Result", vList) //テンプレートに変数を渡す場合
 	}
-
-	//parseClient := urlfetch.Client(aec)
-	//parseRes, ParseErr := parseClient.Get(url)
-	//if ParseErr != nil {
-	//	gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
-	//	log.Errorf(aec, "Error1: %v", ParseErr.Error(), url)
-	//	return
-	//}
-	//defer parseRes.Body.Close()
-	//result := make([]byte, parseRes.ContentLength)
-	//parseRes.Body.Read(result)
-	//
-	//var vList []VideoList
-	//err := json.Unmarshal([]byte(result), &vList)
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-	//gc.HTML(http.StatusOK, "Result", vList) //テンプレートに変数を渡す場合
 }
 
-//func HandleTest(gc *gin.Context) {
-//	//	gc.String(http.StatusOK, fmt.Sprint("Hello World from Gin"))
-//
-//	gc.HTML(http.StatusOK, "index", gin.H{
-//		"title": "myName",
-//	})
-//}
 
 func HandleTestJson(gc *gin.Context) {
-	//var jsonString VideoList // VideoList型、ストラクト、変数
-	//jsonString.VideoId = "g2ag8t7AvX8"
-	//jsonString.ThumbnailUrl = "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg"
-	//jsonString.Title = "title1"
-	//jsonString.Description = "dummyDescription1"
-	//gc.JSON(http.StatusOK, jsonString)
 
 	var original_str = `
 [
