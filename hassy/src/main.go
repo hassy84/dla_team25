@@ -24,6 +24,8 @@ import (
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/urlfetch"
 	"google.golang.org/appengine/log"
+	"golang.org/x/net/context"
+	"time"
 )
 
 func init() {
@@ -103,8 +105,6 @@ func HandleTop(gc *gin.Context) {
 	gc.HTML(http.StatusOK, "Top", gin.H{}) //テンプレートに変数を渡す場合
 }
 
-
-
 //func HandleToppage(gc *gin.Context) {
 //	//gc.String(http.StatusOK, fmt.Sprint("Toppage from Gin"))
 //
@@ -135,20 +135,15 @@ func HandleTop(gc *gin.Context) {
 //	gc.HTML(http.StatusOK, "list", vList) //テンプレートに変数を渡す場合
 //}
 
-func HandleResult(gc *gin.Context) {
-	c := appengine.NewContext(gc.Request)
-
-	//url := "http://localhost:8080/testJson"
-	//	url := "https://team25-demo.appspot.com/testJson"
-	returnString, _ := appengine.ModuleHostname(c, "", "", "")
-	url := "http://" + returnString + "/testJson"
-
-	parseClient := urlfetch.Client(c)
+func GetVListFromDummy(aec context.Context, url string) ([]VideoList, error) {
+	parseClient := urlfetch.Client(aec)
 	parseRes, ParseErr := parseClient.Get(url)
+
 	if ParseErr != nil {
-		gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
-		log.Errorf(c, "Error1: %v", ParseErr.Error(), url)
-		return
+		//gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
+		errMessage := fmt.Sprint("Error1: %v", ParseErr.Error(), url)
+		log.Errorf(aec, errMessage)
+		return nil, fmt.Errorf("%s", errMessage)
 	}
 
 	defer parseRes.Body.Close()
@@ -158,11 +153,96 @@ func HandleResult(gc *gin.Context) {
 	var vList []VideoList
 	err := json.Unmarshal([]byte(result), &vList)
 	if err != nil {
-		fmt.Println(err)
-		return
+		//fmt.Println(err)
+		errMessage := fmt.Sprint(err)
+		log.Errorf(aec, errMessage)
+		return nil, fmt.Errorf("%s", errMessage)
+	}
+	return vList, nil
+}
+
+func GetVListFromYoutube(aec context.Context, url string) ([]VideoList, error) {
+	//log.Infof(aec, url)
+
+	parseClient := urlfetch.Client(aec)
+	parseRes, ParseErr := parseClient.Get(url)
+
+	if ParseErr != nil {
+		//gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
+		errMessage := fmt.Sprint("Error1: %v", ParseErr.Error(), url)
+		log.Errorf(aec, errMessage)
+		return nil, fmt.Errorf("%s", errMessage)
 	}
 
-	gc.HTML(http.StatusOK, "Result", vList) //テンプレートに変数を渡す場合
+//	log.Infof(aec, fmt.Sprint(parseRes))
+
+	defer parseRes.Body.Close()
+	result := make([]byte, parseRes.ContentLength)
+	parseRes.Body.Read(result)
+
+	var youtubeResult YouTubeStruct
+	err := json.Unmarshal([]byte(result), &youtubeResult)
+	if err != nil {
+		//fmt.Println(err)
+		errMessage := fmt.Sprint(err)
+		log.Errorf(aec, errMessage)
+		return nil, fmt.Errorf("%s", errMessage)
+	}
+
+//	log.Infof(aec, fmt.Sprint(youtubeResult.Items[0].Snippet.Description))
+
+	vList := make([]VideoList, 0)
+	allResult := youtubeResult.Items
+	for i, eachResult := range allResult {
+		var tempVList VideoList
+		log.Infof(aec, fmt.Sprint(i, " / ", eachResult.Snippet.Title))
+		tempVList.VideoId = eachResult.ID.VideoID
+		tempVList.ThumbnailUrl = eachResult.Snippet.Thumbnails.High.URL
+		tempVList.Title = eachResult.Snippet.Title
+		tempVList.Description = eachResult.Snippet.Description
+		vList = append(vList, tempVList)
+	}
+	return vList, nil
+}
+
+func HandleResult(gc *gin.Context) {
+	aec := appengine.NewContext(gc.Request)
+
+	qString := gc.PostForm("qString")
+//	log.Infof(aec, qString)
+
+	//currentHostName, _ := appengine.ModuleHostname(aec, "", "", "")
+	//url := "http://" + currentHostName + "/testJson"
+	//vList, perr := GetVListFromDummy(aec, url)
+
+	url := "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&&" +
+		"key=AIzaSyD4HAyfiPbu4QxhMEKgyOO3iAc-Snb1kZw&q=" + qString
+	vList, perr := GetVListFromYoutube(aec, url)
+
+	if perr != nil {
+		gc.String(http.StatusOK, fmt.Sprint("Error1: ", perr.Error()))
+	} else {
+		gc.HTML(http.StatusOK, "Result", vList) //テンプレートに変数を渡す場合
+	}
+
+	//parseClient := urlfetch.Client(aec)
+	//parseRes, ParseErr := parseClient.Get(url)
+	//if ParseErr != nil {
+	//	gc.String(http.StatusOK, fmt.Sprint("Error1: ", ParseErr.Error()))
+	//	log.Errorf(aec, "Error1: %v", ParseErr.Error(), url)
+	//	return
+	//}
+	//defer parseRes.Body.Close()
+	//result := make([]byte, parseRes.ContentLength)
+	//parseRes.Body.Read(result)
+	//
+	//var vList []VideoList
+	//err := json.Unmarshal([]byte(result), &vList)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//gc.HTML(http.StatusOK, "Result", vList) //テンプレートに変数を渡す場合
 }
 
 //func HandleTest(gc *gin.Context) {
@@ -241,4 +321,49 @@ type VideoList struct {
 	ThumbnailUrl string ` json:"thumbnailUrl" binding:"required"`
 	Title        string ` json:"title" binding:"required"`
 	Description  string ` json:"description" `
+}
+
+
+type YouTubeStruct struct {
+	Kind          string `json:"kind"`
+	Etag          string `json:"etag"`
+	NextPageToken string `json:"nextPageToken"`
+	RegionCode    string `json:"regionCode"`
+	PageInfo      struct {
+		TotalResults   int `json:"totalResults"`
+		ResultsPerPage int `json:"resultsPerPage"`
+	} `json:"pageInfo"`
+	Items []struct {
+		Kind string `json:"kind"`
+		Etag string `json:"etag"`
+		ID   struct {
+			Kind    string `json:"kind"`
+			VideoID string `json:"videoId"`
+		} `json:"id"`
+		Snippet struct {
+			PublishedAt time.Time `json:"publishedAt"`
+			ChannelID   string    `json:"channelId"`
+			Title       string    `json:"title"`
+			Description string    `json:"description"`
+			Thumbnails  struct {
+				Default struct {
+					URL    string `json:"url"`
+					Width  int    `json:"width"`
+					Height int    `json:"height"`
+				} `json:"default"`
+				Medium struct {
+					URL    string `json:"url"`
+					Width  int    `json:"width"`
+					Height int    `json:"height"`
+				} `json:"medium"`
+				High struct {
+					URL    string `json:"url"`
+					Width  int    `json:"width"`
+					Height int    `json:"height"`
+				} `json:"high"`
+			} `json:"thumbnails"`
+			ChannelTitle         string `json:"channelTitle"`
+			LiveBroadcastContent string `json:"liveBroadcastContent"`
+		} `json:"snippet"`
+	} `json:"items"`
 }
