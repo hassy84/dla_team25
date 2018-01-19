@@ -11,9 +11,8 @@ import (
 	"google.golang.org/appengine/log"
 	"golang.org/x/net/context"
 	"time"
-	"strings"
+	//	"strings"
 )
-
 
 func init() {
 	router := SetupRouter()
@@ -35,7 +34,6 @@ func SetupRouter() *gin.Engine {
 	return router
 }
 
-
 func createMyRender() multitemplate.Render {
 	r := multitemplate.New()
 	r.AddFromFiles("Top", "templates/base.html", "templates/top.html", "templates/inputPart.html")
@@ -47,8 +45,6 @@ func createMyRender() multitemplate.Render {
 func HandleTop(gc *gin.Context) {
 	gc.HTML(http.StatusOK, "Top", gin.H{})
 }
-
-
 
 func GetVListFromDummy(aec context.Context, url string) ([]VideoList, error) {
 	parseClient := urlfetch.Client(aec)
@@ -118,35 +114,32 @@ func GetVListFromYoutube(aec context.Context, url string) ([]VideoList, error) {
 	return vList, nil
 }
 
-
 func HandleResult(gc *gin.Context) {
 	aec := appengine.NewContext(gc.Request)
 
-//ダミーのJSONを使う場合はここを切り替える
-//	currentHostName, _ := appengine.ModuleHostname(aec, "", "", "")
-//	url := "http://" + currentHostName + "/testJson"
-//	vList, perr := GetVListFromDummy(aec, url)
+	//ダミーのJSONを使う場合はここを切り替える
+	currentHostName, _ := appengine.ModuleHostname(aec, "", "", "")
+	url := "http://" + currentHostName + "/testJson"
+	vList, perr := GetVListFromDummy(aec, url)
 
-
-	tempQString := gc.PostForm("qString")
-	tempQString = strings.Replace(tempQString, "　", " ", -1) //全角スペースは半角に置き換え
-	splitStrings := strings.Split(tempQString, " " ) //半角スペースで分割
-	var qString string
-	if len(splitStrings) == 1 {
-		qString = splitStrings[0]
-	}else{
-		for i, eachString := range splitStrings{
-			if i != 0 {
-				qString = qString + ","
-			}
-			qString = qString + eachString
-		}
-	}
-	log.Infof(aec, qString)
-	url := "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&&" +
-		"key=AIzaSyD4HAyfiPbu4QxhMEKgyOO3iAc-Snb1kZw&q=" + qString
-	vList, perr := GetVListFromYoutube(aec, url)
-
+	//tempQString := gc.PostForm("qString")
+	//tempQString = strings.Replace(tempQString, "　", " ", -1) //全角スペースは半角に置き換え
+	//splitStrings := strings.Split(tempQString, " " ) //半角スペースで分割
+	//var qString string
+	//if len(splitStrings) == 1 {
+	//	qString = splitStrings[0]
+	//}else{
+	//	for i, eachString := range splitStrings{
+	//		if i != 0 {
+	//			qString = qString + ","
+	//		}
+	//		qString = qString + eachString
+	//	}
+	//}
+	//log.Infof(aec, qString)
+	//url := "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&&" +
+	//	"key=AIzaSyD4HAyfiPbu4QxhMEKgyOO3iAc-Snb1kZw&q=" + qString
+	//vList, perr := GetVListFromYoutube(aec, url)
 
 	if perr != nil {
 		gc.String(http.StatusOK, fmt.Sprint("Error1: ", perr.Error()))
@@ -155,54 +148,100 @@ func HandleResult(gc *gin.Context) {
 	}
 }
 
-
 func HandleTestJson(gc *gin.Context) {
 
 	var original_str = `
 [
 {
-"videoId" : "g2ag8t7AvX8",
-"thumbnailUrl" : "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg",
-"title" : "title1title1title1title1",
-"description" : "dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description "
+"videoId" : "http://dljpdemo.s3-website-ap-northeast-1.amazonaws.com/sanma1.html",
+"thumbnailUrl" : "https://i.ytimg.com/vi/cIYq6vZSVdQ/hqdefault.jpg",
+"title" : "明石家さんまの東大生回しが凄い",
+"description" : "FindVoiceデモ　その１に飛びます"
 }
 ,
 {
-"videoId" : "blfDtisFTyM",
-"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
-"title" : "title2InShort",
-"description" : "dummyDescription2InShortCase"
+"videoId" : "http://dljpdemo.s3-website-ap-northeast-1.amazonaws.com/sanma2.html",
+"thumbnailUrl" : "https://i.ytimg.com/vi/cIYq6vZSVdQ/hqdefault.jpg",
+"title" : "明石家さんまの東大生回しが凄い",
+"description" : "FindVoiceデモ　その２に飛びます"
 }
 ,
 {
-"videoId" : "blfDtisFTyM",
-"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
-"title" : "title2InShort",
-"description" : "dummyDescription2InShortCase"
+"videoId" : "https://www.youtube.com/watch?v=V4vlcdIHyXE",
+"thumbnailUrl" : "https://i.ytimg.com/vi/V4vlcdIHyXE/hqdefault.jpg",
+"title" : "女性アイドルのトーク（事故）を笑いに変えちゃう明石家さんまさん",
+"description" : "あけましておめでとうございます"
 }
 ,
 {
-"videoId" : "blfDtisFTyM",
-"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
-"title" : "日本語タイトル",
-"description" : "日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。"
+"videoId" : "https://www.youtube.com/watch?v=Goi0s3xYDAU",
+"thumbnailUrl" : "https://i.ytimg.com/vi/Goi0s3xYDAU/hqdefault.jpg",
+"title" : "場の雰囲気を劇的に変えてしまう明石家さんまのサプライズ登場シーン集",
+"description" : ""
 }
 ,
 {
-"videoId" : "blfDtisFTyM",
-"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
-"title" : "title2InShort",
-"description" : "dummyDescription2InShortCase"
+"videoId" : "https://www.youtube.com/watch?v=9c-RRLTxNhk",
+"thumbnailUrl" : "https://i.ytimg.com/vi/9c-RRLTxNhk/hqdefault.jpg",
+"title" : "人間、明石家さんま。「2018年について」の話",
+"description" : "2018年は人間として生きていってるんだけど、ときどき鬼になったり、天使になったり・・・」2018年について、テレビについて、バラエティ番組..."
 }
 ,
 {
-"videoId" : "blfDtisFTyM",
-"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
-"title" : "title2InShort",
-"description" : "dummyDescription2InShortCase"
+"videoId" : "http://dljpdemo.s3-website-ap-northeast-1.amazonaws.com/sanma_last.html",
+"thumbnailUrl" : "https://i.ytimg.com/vi/rO_ipBIkFbU/hqdefault.jpg",
+"title" : "【衝撃】明石家さんまの月収がこちらですwww",
+"description" : "FindVoiceデモ　その３に飛びます"
 }
 ]
 `
+
+	//	var original_str = `
+	//[
+	//{
+	//"videoId" : "g2ag8t7AvX8",
+	//"thumbnailUrl" : "https://i.ytimg.com/vi/g2ag8t7AvX8/hqdefault.jpg",
+	//"title" : "title1title1title1title1",
+	//"description" : "dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description dummy Description "
+	//}
+	//,
+	//{
+	//"videoId" : "blfDtisFTyM",
+	//"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+	//"title" : "title2InShort",
+	//"description" : "dummyDescription2InShortCase"
+	//}
+	//,
+	//{
+	//"videoId" : "blfDtisFTyM",
+	//"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+	//"title" : "title2InShort",
+	//"description" : "dummyDescription2InShortCase"
+	//}
+	//,
+	//{
+	//"videoId" : "blfDtisFTyM",
+	//"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+	//"title" : "日本語タイトル",
+	//"description" : "日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。日本語の説明、説明。"
+	//}
+	//,
+	//{
+	//"videoId" : "blfDtisFTyM",
+	//"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+	//"title" : "title2InShort",
+	//"description" : "dummyDescription2InShortCase"
+	//}
+	//,
+	//{
+	//"videoId" : "blfDtisFTyM",
+	//"thumbnailUrl" : "https://i.ytimg.com/vi/blfDtisFTyM/hqdefault.jpg",
+	//"title" : "title2InShort",
+	//"description" : "dummyDescription2InShortCase"
+	//}
+	//]
+	//`
+
 	var vList []VideoList
 	err := json.Unmarshal([]byte(original_str), &vList)
 	if err != nil {
@@ -220,20 +259,19 @@ type VideoList struct {
 	Description  string ` json:"description" `
 }
 
-
 type YouTubeStruct struct {
 	Kind          string `json:"kind"`
 	Etag          string `json:"etag"`
 	NextPageToken string `json:"nextPageToken"`
 	RegionCode    string `json:"regionCode"`
-	PageInfo      struct {
+	PageInfo struct {
 		TotalResults   int `json:"totalResults"`
 		ResultsPerPage int `json:"resultsPerPage"`
 	} `json:"pageInfo"`
 	Items []struct {
 		Kind string `json:"kind"`
 		Etag string `json:"etag"`
-		ID   struct {
+		ID struct {
 			Kind    string `json:"kind"`
 			VideoID string `json:"videoId"`
 		} `json:"id"`
@@ -242,7 +280,7 @@ type YouTubeStruct struct {
 			ChannelID   string    `json:"channelId"`
 			Title       string    `json:"title"`
 			Description string    `json:"description"`
-			Thumbnails  struct {
+			Thumbnails struct {
 				Default struct {
 					URL    string `json:"url"`
 					Width  int    `json:"width"`
